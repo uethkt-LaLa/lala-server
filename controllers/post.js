@@ -1,4 +1,6 @@
 var Post = require('../models/post');
+var User = require('../models/user');
+
 
 exports.postPosts = function(req, res) {
     var post = new Post(req.body);
@@ -39,25 +41,55 @@ exports.putPost = function(req, res) {
 };
 
 exports.likePost = function(req, res) {
-    Post.findByIdAndUpdate(
-        req.params.post_id, { $addToSet: { "likes": req.user._id } }, { safe: true, upsert: true },
-        function(err) {
+    Post.update({_id: req.params.post_id},
+                { $addToSet: { "likes": req.user._id } }, 
+        function(err, updated) {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Liker for post added!' });
+            if (updated.nModified == 1) {
+                Post.findById(req.params.post_id, function(err, post) {
+                    if (err)
+                        res.send(err);
+                    User.update({_id: post.userId}, {
+                       $inc: {popular:1}
+                    }, function(err) {
+                       if (err) {
+                            res.send(err);
+                        }
+                        res.json({message: 'User update'});
+                    })
+                });
+            } else {
+                res.json({ message: 'Liker for post added!' });
+            }
         }
     );
 };
 
 exports.unlikePost = function(req, res) {
-    Post.findByIdAndUpdate(
-        req.params.post_id, { $pull: { "likes": req.user._id } }, { safe: true, upsert: true },
-        function(err) {
+    Post.update({_id: req.params.post_id},
+                { $pull: { "likes": req.user._id } },
+        function(err, updated) {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Liker for post removed!' });
+            if (updated.nModified == 1) {
+                Post.findById(req.params.post_id, function(err, post) {
+                    if (err)
+                        res.send(err);
+                    User.update({_id: post.userId}, {
+                       $inc: {popular:-1}
+                    }, function(err) {
+                       if (err) {
+                            res.send(err);
+                        }
+                        res.json({message: 'User update'});
+                    })
+                });
+            } else {
+                res.json({ message: 'Liker for post removed!' });
+            }
         }
     );
 };

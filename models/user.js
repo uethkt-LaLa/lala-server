@@ -62,6 +62,10 @@ var UserSchema = Schema({
     join_date: {
         type: Date,
         default: Date.now
+    },
+    popular: {
+        type: Number,
+        default: 0
     }
 });
 
