@@ -11,7 +11,7 @@ module.exports = function(router, passport){
         res.render('profile.ejs', { user: req.user });
     });
 
-    router.get('/*', function(req, res){
+    router.get('/', function(req, res){
         res.redirect('/profile');
     })
 
