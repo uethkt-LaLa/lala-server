@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Tag = require('../models/tag');
 
 exports.postUsers = function(req, res) {
     var user = new User(req.body);
@@ -31,7 +32,11 @@ exports.getPopularUsers = function (req, res) {
 
 
 exports.getTagsUserFollow = function (req, res) {
-    res.json(req.user.following_tags);
+    Tag.find({'_id': {'$in' : req.user.following_tags}}, function (err, tags) {
+        if (err)
+            res.send(err);
+        res.json(tags);
+    });
 }
 
 
