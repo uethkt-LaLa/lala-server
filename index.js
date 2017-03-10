@@ -42,6 +42,9 @@ router.route('/users')
     .post(userController.postUsers)
     .get(authController.isAuthenticated, userController.getUsers);
 
+router.route('/users/popular')
+    .get(authController.isAuthenticated, userController.getPopularUsers);
+
 router.route('/users/:user_id')
     .get(authController.isAuthenticated, userController.getUser);
 
