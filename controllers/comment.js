@@ -22,6 +22,15 @@ exports.getCommentsFromPost = function(req, res) {
 };
 
 exports.getAllComments = function(req, res) {
+    Comment.find(function(err, comments) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(comments);
+    });
+};
+
+exports.getCommentsByMe = function(req, res) {
     Comment.find({ userId: req.user._id }, function(err, comments) {
         if (err) {
             res.send(err);
@@ -29,6 +38,8 @@ exports.getAllComments = function(req, res) {
         res.json(comments);
     });
 };
+
+
 
 exports.getComment = function(req, res) {
     Comment.findById(req.params.comment_id, function(err, comment) {
@@ -38,6 +49,7 @@ exports.getComment = function(req, res) {
     });
 };
 
+
 exports.putComment = function(req, res) {
     Comment.update({ _id: req.params.comment_id }, req.body,
         function(err, comment) {
@@ -46,6 +58,54 @@ exports.putComment = function(req, res) {
             }
             res.json({ message: 'Comment updated!' });
         });
+};
+
+exports.likeComment = function(req, res) {
+    Comment.findByIdAndUpdate(
+        req.params.comment_id, { $addToSet: { "likes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Liker for comment added!' });
+        }
+    );
+};
+
+exports.unlikeComment = function(req, res) {
+    Comment.findByIdAndUpdate(
+        req.params.comment_id, { $pull: { "likes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Liker for comment removed!' });
+        }
+    );
+};
+
+exports.dislikeComment = function(req, res) {
+    Comment.findByIdAndUpdate(
+        req.params.comment_id, { $addToSet: { "dislikes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Disliker for comment removed!' });
+        }
+    );
+};
+
+exports.undislikeComment = function(req, res) {
+    Comment.findByIdAndUpdate(
+        req.params.comment_id, { $pull: { "dislikes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Disliker for comment removed!' });
+        }
+    );
 };
 
 exports.deleteComment = function(req, res) {

@@ -58,7 +58,11 @@ router.route('/home')
     .delete(authController.isAuthenticated, userController.deleteUser);
 
 router.route('/home/posts')
-    .get(authController.isAuthenticated, postController.getPostsByMe)
+    .get(authController.isAuthenticated, postController.getPostsByMe);
+
+router.route('/home/comments')
+    .get(authController.isAuthenticated, commentController.getCommentsByMe);
+
 
 // Routing for following stuff
 router.route('/home/following_people/:following_id')
@@ -89,10 +93,12 @@ router.route('/posts/:post_id')
     .delete(authController.isAuthenticated, postController.deletePost);
 
 router.route('/posts/:post_id/like')
-    .put(authController.isAuthenticated, postController.likePost);
+    .put(authController.isAuthenticated, postController.likePost)
+    .delete(authController.isAuthenticated, postController.unlikePost);
 
 router.route('/posts/:post_id/dislike')
-    .put(authController.isAuthenticated, postController.dislikePost);
+    .put(authController.isAuthenticated, postController.dislikePost)
+    .delete(authController.isAuthenticated, postController.undislikePost);
 
 router.route('/posts/:post_id/followers')
     .put(authController.isAuthenticated, postController.addFollower)
@@ -110,13 +116,21 @@ router.route('/posts/:post_id/tags/:tag_id')
     .put(authController.isAuthenticated, postController.addTagToPost)
     .delete(authController.isAuthenticated, postController.removeTagFromPost);
 
-router.route('/home/comments')
+router.route('/comments')
     .get(authController.isAuthenticated, commentController.getAllComments);
 
 router.route('/comments/:comment_id')
     .get(authController.isAuthenticated, commentController.getComment)
     .put(authController.isAuthenticated, commentController.putComment)
     .delete(authController.isAuthenticated, commentController.deleteComment);
+
+router.route('/comments/:comment_id/like')
+    .put(authController.isAuthenticated, commentController.likeComment)
+    .delete(authController.isAuthenticated, commentController.unlikeComment);
+
+router.route('/comments/:comment_id/dislike')
+    .put(authController.isAuthenticated, commentController.dislikeComment)
+    .delete(authController.isAuthenticated, commentController.undislikeComment);
 
 
 // Route for categories

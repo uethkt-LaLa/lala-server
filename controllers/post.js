@@ -50,6 +50,18 @@ exports.likePost = function(req, res) {
     );
 };
 
+exports.unlikePost = function(req, res) {
+    Post.findByIdAndUpdate(
+        req.params.post_id, { $pull: { "likes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Liker for post removed!' });
+        }
+    );
+};
+
 exports.dislikePost = function(req, res) {
     Post.findByIdAndUpdate(
         req.params.post_id, { $addToSet: { "dislikes": req.user._id } }, { safe: true, upsert: true },
@@ -57,7 +69,19 @@ exports.dislikePost = function(req, res) {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Disliker for post added!' });
+            res.json({ message: 'Disliker for post removed!' });
+        }
+    );
+};
+
+exports.undislikePost = function(req, res) {
+    Post.findByIdAndUpdate(
+        req.params.post_id, { $pull: { "dislikes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Disliker for post removed!' });
         }
     );
 };
