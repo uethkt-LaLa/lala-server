@@ -22,9 +22,18 @@ exports.getUsers = function(req, res) {
 
 exports.getPopularUsers = function (req, res) {
     User.find({}, null, {sort: {popular: -1}}, function (err, users) {
+        if (err) {
+            res.send(err);
+        }
         res.json(users);
     });
 }
+
+
+exports.getTagsUserFollow = function (req, res) {
+    res.json(req.user.following_tags);
+}
+
 
 exports.getUser = function(req, res) {
     User.findById(req.params.user_id, function(err, user) {

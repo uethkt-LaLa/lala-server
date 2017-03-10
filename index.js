@@ -84,6 +84,9 @@ router.route('/home/following_tags/:tag_id')
     .put(authController.isAuthenticated, userController.followTag)
     .delete(authController.isAuthenticated, userController.unfollowTag);
 
+router.route('/home/following_tags/')
+    .get(authController.isAuthenticated, userController.getTagsUserFollow);
+
 
 // Routing for posts and comments
 router.route('/posts')
