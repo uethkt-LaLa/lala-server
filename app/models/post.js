@@ -6,6 +6,12 @@ var PostSchema = Schema({
     userId: {
         type: String,
     },
+    userName: {
+        type: String
+    },
+    userAvatar: {
+        type: String
+    },
     // attachment: {
     //     type: String,
     // },

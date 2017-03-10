@@ -2,19 +2,39 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var morgan = require('morgan');
+var flash = require('connect-flash');
 
+
+
+// --------------CONFIGURATION--------------
+var port = process.env.PORT || 5000; 
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 var mongodb = mongoose.connection;
 
 
+app.use(morgan('dev'));
+app.use(cookieParser());
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({secret: 'anystringoftext',
+                 saveUninitialized: true,
+                 resave: true}));
 
-var port = process.env.PORT || 5000; 
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+app.set('view engine', 'ejs');
+
+
+
 
 // Handle get request
 app.get('/api', function (req, res) {
