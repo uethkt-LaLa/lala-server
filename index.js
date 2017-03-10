@@ -16,6 +16,7 @@ var port = process.env.PORT || 5000;
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 var mongodb = mongoose.connection;
+require('./config/passport')(passport);
 
 
 app.use(morgan('dev'));
@@ -40,6 +41,16 @@ app.set('view engine', 'ejs');
 app.get('/api', function (req, res) {
     res.json({message: "Hooray! welcome admin to our api!"});
 });
+
+var auth = express.Router();
+require('./app/routes/auth.js')(auth, passport);
+app.use('/auth', auth);
+
+var secure = express.Router();
+require('./app/routes/secure.js')(secure, passport);
+app.use('/', secure);
+
+
 
 
 // routes for users: /api/users
