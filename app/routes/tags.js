@@ -21,4 +21,7 @@ module.exports = function(router){
     router.route('/:tag_id/posts/:post_id')  
         .put(authController.isAuthenticated, tagController.addPostToTag)
         .delete(authController.isAuthenticated, tagController.removePostFromTag);
+
+    router.route('/:tag_id/posts') 
+        .get(authController.isAuthenticated, tagController.getAllPosts); 
 }

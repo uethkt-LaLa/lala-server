@@ -1,4 +1,5 @@
 var Tag = require('../models/tag');
+var Post = require('../models/post');
 
 exports.postTags = function(req, res) {
     var tag = new Tag(req.body);
@@ -98,3 +99,15 @@ exports.removePostFromTag = function(req, res) {
         }
     );
 };
+
+exports.getAllPosts = function (req, res) {
+    Tag.findById(req.params.tag_id, function(err, tag) {
+        if (err)
+            res.send(err);
+        Post.find({'_id': {'$in' : tag.posts}}, function (err, posts) {
+            if (err)
+                res.send(err);
+            res.json(posts);
+        });
+    });
+}
