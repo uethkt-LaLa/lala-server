@@ -13,7 +13,10 @@ var TagSchema = Schema({
     followers: [{
         type: String,
         unique: true
-    }]
+    }],
+    image_url: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Tag', TagSchema);

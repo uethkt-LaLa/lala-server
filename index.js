@@ -22,28 +22,39 @@ app.get('/api', function (req, res) {
 });
 
 
+// routes for users: /api/users
 var users = express.Router();
 require('./app/routes/users.js')(users);
 app.use('/api/users', users);
 
+
+// routes for home: /api/home
 var home = express.Router();
 require('./app/routes/home.js')(home);
 app.use('/api/home', home);
 
+
+// routes for posts: /api/posts
 var posts = express.Router();
 require('./app/routes/posts.js')(posts);
 app.use('/api/posts', posts);
 
+
+// routes for comments: /api/comments
 var comments = express.Router();
 require('./app/routes/comments.js')(comments);
 app.use('/api/comments', comments);
 
+
+// routes for category: /api/category
 var category = express.Router();
 require('./app/routes/category.js')(category);
 app.use('/api/category', category);
 
+
+// routes for tags: /api/tags
 var tags = express.Router();
-require('./app/routes/category.js')(tags);
+require('./app/routes/tags.js')(tags);
 app.use('/api/tags', tags);
 
 

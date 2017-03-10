@@ -66,6 +66,9 @@ var UserSchema = Schema({
     popular: {
         type: Number,
         default: 0
+    },
+    image_url: {
+        type: String
     }
 });
 

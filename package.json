@@ -22,9 +22,17 @@
     "cool-ascii-faces": "1.3.4",
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "express-session": "latest",
     "mongoose": "*",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-http": "^0.3.0",
+    "connect-flash": "latest",
+    "cookie-parser": "latest",
+    "ejs": "latest",
+    "morgan": "^1.8.1",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0"
   },
   "homepage": "https://github.com/uethkt-LaLa/lala-server#readme"
 }
