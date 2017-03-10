@@ -38,6 +38,31 @@ exports.putPost = function(req, res) {
         });
 };
 
+exports.likePost = function(req, res) {
+    Post.findByIdAndUpdate(
+        req.params.post_id, { $addToSet: { "likes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Liker for post added!' });
+        }
+    );
+};
+
+exports.dislikePost = function(req, res) {
+    Post.findByIdAndUpdate(
+        req.params.post_id, { $addToSet: { "dislikes": req.user._id } }, { safe: true, upsert: true },
+        function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: 'Disliker for post added!' });
+        }
+    );
+};
+
+
 exports.deletePost = function(req, res) {
     Post.remove({
         _id: req.params.post_id

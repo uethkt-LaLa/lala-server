@@ -24,14 +24,14 @@ var PostSchema = Schema({
         type: String,
         required: true
     },
-    likes_count: {
-        type: Number,
-        default: 0
-    },
-    dislikes_count: {
-        type: Number,
-        default: 0
-    },
+    likes: [{
+        type: String,
+        unique: true
+    }],
+    dislikes: [{
+        type: String,
+        unique: true
+    }],
     comments: [{
         type: String,
         unique: true

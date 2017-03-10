@@ -88,6 +88,12 @@ router.route('/posts/:post_id')
     .put(authController.isAuthenticated, postController.putPost)
     .delete(authController.isAuthenticated, postController.deletePost);
 
+router.route('/posts/:post_id/like')
+    .put(authController.isAuthenticated, postController.likePost);
+
+router.route('/posts/:post_id/dislike')
+    .put(authController.isAuthenticated, postController.dislikePost);
+
 router.route('/posts/:post_id/followers')
     .put(authController.isAuthenticated, postController.addFollower)
     .delete(authController.isAuthenticated, postController.removeFollower);
@@ -104,7 +110,7 @@ router.route('/posts/:post_id/tags/:tag_id')
     .put(authController.isAuthenticated, postController.addTagToPost)
     .delete(authController.isAuthenticated, postController.removeTagFromPost);
 
-router.route('/comments')
+router.route('/home/comments')
     .get(authController.isAuthenticated, commentController.getAllComments);
 
 router.route('/comments/:comment_id')
