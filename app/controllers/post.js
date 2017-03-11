@@ -6,7 +6,7 @@ exports.postPosts = function(req, res) {
     var post = new Post(req.body);
 
     post.userId = req.user._id;
-    post.userName = req.user.username;
+    post.userName = req.user.display_name;
     post.userAvatar = req.user.image_url;
     post.save(function(err) {
         if (err)
