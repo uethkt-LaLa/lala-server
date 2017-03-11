@@ -22,6 +22,6 @@ module.exports = function(router){
         .get(authController.isAuthenticated, postController.getPostsByUser);
     
     router.route('/fb_id/:fb_id')
-        .get(authController.isAuthenticated, userController.getUserByFBId);
+        .get(userController.getUserByFBId);
 
 }
