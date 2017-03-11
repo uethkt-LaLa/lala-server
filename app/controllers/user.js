@@ -242,7 +242,6 @@ exports.getNewFeeds = function(req, res) {
             res.send(err);
 
         for (var i = 0; i < tags.length; ++i) {
-            // console.log(tags[i].posts);
             for (var j = 0; j < tags[i].posts.length; ++j) {
                 results.add(tags[i].posts[j]);
                 console.log('Posts to add' + tags[i].posts[j]);
