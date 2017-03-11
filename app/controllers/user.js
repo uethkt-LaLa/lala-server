@@ -223,7 +223,7 @@ exports.unfollowTag = function(req, res) {
 };
 
 exports.getPostsUserFollow = function(req, res) {
-    Post.find({'_id': {'$in' : req.user.following_posts}}, null, {sort: {created_time: 1}},
+    Post.find({'_id': {'$in' : req.user.following_posts}}, null, {sort: {created_time: -1}},
         function (err, posts) {
             if (err) {
                 res.send(err);
@@ -249,7 +249,7 @@ exports.getNewFeeds = function(req, res) {
                 console.log('Posts to add' + tags[i].posts[j]);
             }
         }
-        Post.find({'_id': {'$in' : Array.from(results)}}, null, {sort: {created_time: 1}},
+        Post.find({'_id': {'$in' : Array.from(results)}}, null, {sort: {created_time: -1}},
             function (err, posts) {
                 if (err) {
                     res.send(err);

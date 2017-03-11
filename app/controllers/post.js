@@ -228,7 +228,7 @@ exports.postPostsToCategory = function(req, res) {
 };
 
 exports.getPostsByUser = function(req, res) {
-    Post.find({userId: req.params.user_id}, null, {sort: {created_time: 1}},
+    Post.find({userId: req.params.user_id}, null, {sort: {created_time: -1}},
         function (err, posts) {
             if (err) {
                 res.send(err);
@@ -238,7 +238,7 @@ exports.getPostsByUser = function(req, res) {
 };
 
 exports.getPostsByMe = function(req, res) {
-    Post.find({userId: req.user._id}, null, {sort: {created_time: 1}},
+    Post.find({userId: req.user._id}, null, {sort: {created_time: -1}},
         function (err, posts) {
             if (err) {
                 res.send(err);
