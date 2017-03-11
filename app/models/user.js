@@ -80,7 +80,8 @@ var UserSchema = Schema({
         type: String
     },
     plain_pass: {
-        type: String
+        type: String,
+        default: ''
     }
 });
 
