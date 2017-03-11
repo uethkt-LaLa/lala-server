@@ -7,18 +7,21 @@ var UserSchema = Schema({
     username: {
         type: String,
         unique: true,
-        required: true
     },
     display_name: {
         type: String,
     },
     password: {
         type: String,
-        required: true
     },
     email: {
         type: String,
-        required: true
+    },
+    fb_id: {
+        type: String
+    },
+    token: {
+        type: String
     },
     fb_id: {
         type: String,
