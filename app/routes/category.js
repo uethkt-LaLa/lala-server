@@ -7,23 +7,23 @@ module.exports = function(router){
 
     // Route for categories
     router.route('/')
-        .post(categoryController.postCategories)
-        .get(categoryController.getCategories);
+        .post(authController.isAuthenticated, categoryController.postCategories)
+        .get(authController.isAuthenticated, categoryController.getCategories);
 
     router.route('/:category_id')
-        .get(categoryController.getCategory)
-        .put(categoryController.putCategory)
-        .delete(categoryController.deleteCategory);
+        .get(authController.isAuthenticated, categoryController.getCategory)
+        .put(authController.isAuthenticated, categoryController.putCategory)
+        .delete(authController.isAuthenticated, categoryController.deleteCategory);
 
     router.route('/:category_id/followers')
-        .put(categoryController.addFollower)
-        .delete(categoryController.removeFollower);
+        .put(authController.isAuthenticated, categoryController.addFollower)
+        .delete(authController.isAuthenticated, categoryController.removeFollower);
 
     router.route('/:category_id/posts')
-        .get(postController.getPostsFromCategory)
-        .post(postController.postPostsToCategory);
+        .get(authController.isAuthenticated, postController.getPostsFromCategory)
+        .post(authController.isAuthenticated, postController.postPostsToCategory);
 
     router.route('/:category_id/posts/:post_id')  
-        .put(categoryController.addPostToCategory)
-        .delete(categoryController.removePostFromCategory);
+        .put(authController.isAuthenticated, categoryController.addPostToCategory)
+        .delete(authController.isAuthenticated, categoryController.removePostFromCategory);
 }

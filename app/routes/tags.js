@@ -6,22 +6,22 @@ module.exports = function(router){
 
     // Route for tags
     router.route('/')
-        .post(tagController.postTags)
-        .get(tagController.getTags);
+        .post(authController.isAuthenticated, tagController.postTags)
+        .get(authController.isAuthenticated, tagController.getTags);
 
     router.route('/:tag_id')
-        .get(tagController.getTag)
-        .put(tagController.putTag)
-        .delete(tagController.deleteTag);
+        .get(authController.isAuthenticated, tagController.getTag)
+        .put(authController.isAuthenticated, tagController.putTag)
+        .delete(authController.isAuthenticated, tagController.deleteTag);
 
     router.route('/:tag_id/followers')
-        .put(tagController.addFollower)
-        .delete(tagController.removeFollower);
+        .put(authController.isAuthenticated, tagController.addFollower)
+        .delete(authController.isAuthenticated, tagController.removeFollower);
 
     router.route('/:tag_id/posts/:post_id')  
-        .put(tagController.addPostToTag)
-        .delete(tagController.removePostFromTag);
+        .put(authController.isAuthenticated, tagController.addPostToTag)
+        .delete(authController.isAuthenticated, tagController.removePostFromTag);
 
     router.route('/:tag_id/posts') 
-        .get(tagController.getAllPosts); 
+        .get(authController.isAuthenticated, tagController.getAllPosts); 
 }

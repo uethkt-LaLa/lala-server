@@ -7,37 +7,37 @@ var tagController = require('../controllers/tag');
 module.exports = function(router){
 
     router.route('/')
-        .post(postController.postPosts)
-        .get(postController.getPosts);
+        .post(authController.isAuthenticated, postController.postPosts)
+        .get(authController.isAuthenticated, postController.getPosts);
 
     router.route('/:post_id')  
-        .get(postController.getPost)
-        .put(postController.putPost)
-        .delete(postController.deletePost);
+        .get(authController.isAuthenticated, postController.getPost)
+        .put(authController.isAuthenticated, postController.putPost)
+        .delete(authController.isAuthenticated, postController.deletePost);
 
     router.route('/:post_id/like')
-        .put(postController.likePost)
-        .delete(postController.unlikePost);
+        .put(authController.isAuthenticated, postController.likePost)
+        .delete(authController.isAuthenticated, postController.unlikePost);
 
     router.route('/:post_id/dislike')
-        .put(postController.dislikePost)
-        .delete(postController.undislikePost);
+        .put(authController.isAuthenticated, postController.dislikePost)
+        .delete(authController.isAuthenticated, postController.undislikePost);
 
     router.route('/:post_id/followers')
-        .put(postController.addFollower)
-        .delete(postController.removeFollower);
+        .put(authController.isAuthenticated, postController.addFollower)
+        .delete(authController.isAuthenticated, postController.removeFollower);
 
     router.route('/:post_id/comments')
-        .post(commentController.postCommentsToPost)
-        .get(commentController.getCommentsFromPost);
+        .post(authController.isAuthenticated, commentController.postCommentsToPost)
+        .get(authController.isAuthenticated, commentController.getCommentsFromPost);
 
     router.route('/:post_id/comments/:comment_id')  
-        .put(postController.addCommentToPost)
-        .delete(postController.removeCommentFromPost);
+        .put(authController.isAuthenticated, postController.addCommentToPost)
+        .delete(authController.isAuthenticated, postController.removeCommentFromPost);
 
     router.route('/:post_id/tags/:tag_id')  
-        .put(postController.addTagToPost)
-        .delete(postController.removeTagFromPost);
+        .put(authController.isAuthenticated, postController.addTagToPost)
+        .delete(authController.isAuthenticated, postController.removeTagFromPost);
 
     router.route('/:post_id/tags')
         .get(authController.isAuthenticated, tagController.getTagsFromPost);
