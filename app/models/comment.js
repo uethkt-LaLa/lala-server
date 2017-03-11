@@ -35,6 +35,10 @@ var CommentSchema = Schema({
     created_time: {
         type: Date,
         default: Date.now
+    },
+    image_url: {
+        type: String,
+        default: ""
     }
 });
 
