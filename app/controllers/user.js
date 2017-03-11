@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var Tag = require('../models/tag');
+var Post = require('../models/post');
 
 exports.postUsers = function(req, res) {
     var user = new User(req.body);
@@ -219,6 +220,14 @@ exports.unfollowTag = function(req, res) {
             res.json({ message: 'Following post removed!' });
         }
     );
+};
+
+exports.getPostsUserFollow = function(req, res) {
+    Post.find({'_id': {'$in' : req.user.following_posts}}, function (err, posts) {
+        if (err)
+            res.send(err);
+        res.json(posts);
+    });
 };
 
 

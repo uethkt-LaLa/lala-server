@@ -34,6 +34,8 @@ module.exports = function(router){
         .put(authController.isAuthenticated, userController.followPost)
         .delete(authController.isAuthenticated, userController.unfollowPost);
 
+    router.route('/following_posts/')
+        .get(authController.isAuthenticated, userController.getPostsUserFollow);
 
     router.route('/following_categories/:category_id')
         .put(authController.isAuthenticated, userController.followCategory)
