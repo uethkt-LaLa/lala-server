@@ -116,10 +116,10 @@ exports.getTagsFromPost = function (req, res) {
     Post.findById(req.params.post_id, function (err, post) {
         if (err)
             res.send(err);
-        Tag.find({'_id': {'$in' : post.tags}}, function (err, tags) {
+        Tag.find({'_id': {'$in' : post.tags}}, 'name -_id', function (err, someValue) {
             if (err)
                 res.send(err);
-            res.json(tags);
+            res.send(someValue);
         });
     });
 }
