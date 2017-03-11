@@ -16,12 +16,13 @@ exports.postPosts = function(req, res) {
 };
 
 exports.getPosts = function(req, res) {
-    Post.find(function(err, posts) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(posts);
-    });
+    Post.find({}, null, {sort: {created_time: 1}},
+        function (err, posts) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(posts);
+        });
 };
 
 exports.getPost = function(req, res) {
@@ -227,20 +228,22 @@ exports.postPostsToCategory = function(req, res) {
 };
 
 exports.getPostsByUser = function(req, res) {
-    Post.find({ userId: req.params.user_id }, function(err, posts) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(posts);
-    });
+    Post.find({userId: req.params.user_id}, null, {sort: {created_time: 1}},
+        function (err, posts) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(posts);
+        });
 };
 
 exports.getPostsByMe = function(req, res) {
-    Post.find({ userId: req.user._id }, function(err, posts) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(posts);
-    });
+    Post.find({userId: req.user._id}, null, {sort: {created_time: 1}},
+        function (err, posts) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(posts);
+        });
 };
 

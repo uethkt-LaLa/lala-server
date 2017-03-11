@@ -15,11 +15,13 @@ exports.postCommentsToPost = function(req, res) {
 };
 
 exports.getCommentsFromPost = function(req, res) {
-    Comment.find({ postId: req.params.post_id }, function(err, comments) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(comments);
+    Comment.find({ postId: req.params.post_id }, 
+        null, {sort: {created_time: 1}}, 
+        function (err, comments) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(comments);
     });
 };
 

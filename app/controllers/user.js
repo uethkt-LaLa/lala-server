@@ -223,11 +223,13 @@ exports.unfollowTag = function(req, res) {
 };
 
 exports.getPostsUserFollow = function(req, res) {
-    Post.find({'_id': {'$in' : req.user.following_posts}}, function (err, posts) {
-        if (err)
-            res.send(err);
-        res.json(posts);
-    });
+    Post.find({'_id': {'$in' : req.user.following_posts}}, null, {sort: {created_time: 1}},
+        function (err, posts) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(posts);
+        });
 };
 
 exports.getNewFeeds = function(req, res) {
@@ -247,11 +249,13 @@ exports.getNewFeeds = function(req, res) {
                 console.log('Posts to add' + tags[i].posts[j]);
             }
         }
-        Post.find({'_id': {'$in' : Array.from(results)}}, function (err, posts) {
-            if (err)
-                res.send(err);
-            res.json(posts);
-        });
+        Post.find({'_id': {'$in' : Array.from(results)}}, null, {sort: {created_time: 1}},
+            function (err, posts) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(posts);
+            });
     });
     
 };
