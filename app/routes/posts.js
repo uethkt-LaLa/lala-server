@@ -1,6 +1,7 @@
 var authController = require('../controllers/auth');
 var postController = require('../controllers/post');
 var commentController = require('../controllers/comment');
+var tagController = require('../controllers/tag');
 
 // Routing for posts 
 module.exports = function(router){
@@ -37,5 +38,8 @@ module.exports = function(router){
     router.route('/:post_id/tags/:tag_id')  
         .put(authController.isAuthenticated, postController.addTagToPost)
         .delete(authController.isAuthenticated, postController.removeTagFromPost);
+
+    router.route('/:post_id/tags')
+        .get(authController.isAuthenticated, tagController.getTagsFromPost);
 
 }

@@ -111,3 +111,15 @@ exports.getAllPosts = function (req, res) {
         });
     });
 }
+
+exports.getTagsFromPost = function (req, res) {
+    Post.findById(req.params.post_id, function (err, post) {
+        if (err)
+            res.send(err);
+        Tag.find({'_id': {'$in' : post.tags}}, function (err, tags) {
+            if (err)
+                res.send(err);
+            res.json(tags);
+        });
+    });
+}
