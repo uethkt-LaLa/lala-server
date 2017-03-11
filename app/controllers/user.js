@@ -247,7 +247,6 @@ exports.getNewFeeds = function(req, res) {
                 console.log('Posts to add' + tags[i].posts[j]);
             }
         }
-
         Post.find({'_id': {'$in' : Array.from(results)}}, function (err, posts) {
             if (err)
                 res.send(err);
