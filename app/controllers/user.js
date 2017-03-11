@@ -230,6 +230,33 @@ exports.getPostsUserFollow = function(req, res) {
     });
 };
 
+exports.getNewFeeds = function(req, res) {
+    var results = new Set();
+    var following_posts = req.user.following_posts;
+    for (var i = 0; i < following_posts.length; ++i) {
+        results.add(following_posts[i]);
+    }
+
+    Tag.find({'_id': {'$in' : req.user.following_tags}}, function (err, tags) {
+        if (err)
+            res.send(err);
+
+        for (var i = 0; i < tags.length; ++i) {
+            // console.log(tags[i].posts);
+            for (var j = 0; j < tags[i].posts.length; ++j) {
+                results.add(tags[i].posts[j]);
+                console.log('Posts to add' + tags[i].posts[j]);
+            }
+        }
+
+        Post.find({'_id': {'$in' : Array.from(results)}}, function (err, posts) {
+            if (err)
+                res.send(err);
+            res.json(posts);
+        });
+    });
+    
+};
 
 
 

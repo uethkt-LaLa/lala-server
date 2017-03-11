@@ -48,4 +48,6 @@ module.exports = function(router){
     router.route('/following_tags/')
         .get(authController.isAuthenticated, userController.getTagsUserFollow);
 
+    router.route('/new_feeds')
+        .get(authController.isAuthenticated, userController.getNewFeeds);
 }
