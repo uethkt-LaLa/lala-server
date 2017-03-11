@@ -19,20 +19,21 @@ module.exports = function (passport) {
         clientSecret: configAuth.facebookAuth.clientSecret,
         callbackURL: configAuth.facebookAuth.callbackURL,
         passReqToCallback: true,
-        profileFields: ["id","emails","name"]
+        profileFields: ["id","emails","name","photos"]
       },
       function(req, accessToken, refreshToken, profile, done) {
             process.nextTick(function(){
                 //user is not logged in yet
                 if(!req.user){
-                    User.findOne({'facebook.id': profile.id}, function(err, user){
+                    User.findOne({'fb_id': profile.id}, function(err, user){
                         if(err)
                             return done(err);
                         if(user){
-                            if(!user.facebook.token){
-                                user.facebook.token = accessToken;
-                                user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                                user.facebook.email = profile.emails[0].value;
+                            if(!user.token){
+                                user.token = accessToken;
+                                user.username = profile.name.givenName + ' ' + profile.name.familyName;
+                                user.email = profile.emails[0].value;
+                                user.image_url = profile.photos[0].value;
                                 user.save(function(err){
                                     if(err)
                                         throw err;
@@ -43,10 +44,11 @@ module.exports = function (passport) {
                         }
                         else {
                             var newUser = new User();
-                            newUser.facebook.id = profile.id;
-                            newUser.facebook.token = accessToken;
-                            newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                            newUser.facebook.email = profile.emails[0].value;
+                            newUser.fb_id = profile.id;
+                            newUser.token = accessToken;
+                            newUser.username = profile.name.givenName + ' ' + profile.name.familyName;
+                            newUser.email = profile.emails[0].value;
+                            newUser.image_url = profile.photos[0].value;
 
                             newUser.save(function(err){
                                 if(err)
@@ -60,10 +62,11 @@ module.exports = function (passport) {
                 //user is logged in already, and needs to be merged
                 else {
                     var user = req.user;
-                    user.facebook.id = profile.id;
-                    user.facebook.token = accessToken;
-                    user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                    user.facebook.email = profile.emails[0].value;
+                    user.fb_id = profile.id;
+                    user.token = accessToken;
+                    user.username = profile.name.givenName + ' ' + profile.name.familyName;
+                    user.email = profile.emails[0].value;
+                    user.image_url = profile.photos[0].value;
 
                     user.save(function(err){
                         if(err)

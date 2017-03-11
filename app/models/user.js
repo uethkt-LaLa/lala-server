@@ -14,6 +14,12 @@ var UserSchema = Schema({
     email: {
         type: String,
     },
+    fb_id: {
+        type: String
+    },
+    token: {
+        type: String
+    },
     phone_number: {
         type: String
     },
@@ -65,12 +71,6 @@ var UserSchema = Schema({
     },
     image_url: {
         type: String
-    },
-    facebook: {
-        id: String,
-        token: String,
-        email: String,
-        name: String
     }
 });
 

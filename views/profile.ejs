@@ -22,12 +22,12 @@
         <div class="col-sm-6">
             <div class="well">
                 <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
-                <% if (user.facebook.token) { %>
+                <% if (user.token) { %>
                 <p>
-                    <strong>id</strong>: <%= user.facebook.id %><br>
-                    <strong>token</strong>: <%= user.facebook.token %><br>
-                    <strong>email</strong>: <%= user.facebook.email %><br>
-                    <strong>name</strong>: <%= user.facebook.name %>
+                    <strong>id</strong>: <%= user.fb_id %><br>
+                    <strong>token</strong>: <%= user.token %><br>
+                    <strong>email</strong>: <%= user.email %><br>
+                    <strong>name</strong>: <%= user.username %>
                 </p>
 
                 <a href="/auth/unlink/facebook" class="btn btn-primary">Unlink</a>
