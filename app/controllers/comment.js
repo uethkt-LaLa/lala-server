@@ -95,7 +95,7 @@ exports.dislikeComment = function(req, res) {
             if (err) {
                 res.send(err);
             }
-            res.json({ message: 'Disliker for comment removed!' });
+            res.json({ message: 'Disliker for comment added!' });
         }
     );
 };
