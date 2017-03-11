@@ -6,18 +6,18 @@ var commentController = require('../controllers/comment');
 module.exports = function(router){
 
     router.route('/')
-        .get(commentController.getAllComments);
+        .get(authController.isAuthenticated, commentController.getAllComments);
 
     router.route('/:comment_id')
-        .get(commentController.getComment)
-        .put(commentController.putComment)
-        .delete(commentController.deleteComment);
+        .get(authController.isAuthenticated, commentController.getComment)
+        .put(authController.isAuthenticated, commentController.putComment)
+        .delete(authController.isAuthenticated, commentController.deleteComment);
 
     router.route('/:comment_id/like')
-        .put(commentController.likeComment)
-        .delete(commentController.unlikeComment);
+        .put(authController.isAuthenticated, commentController.likeComment)
+        .delete(authController.isAuthenticated, commentController.unlikeComment);
 
     router.route('/:comment_id/dislike')
-        .put(commentController.dislikeComment)
-        .delete(commentController.undislikeComment);
+        .put(authController.isAuthenticated, commentController.dislikeComment)
+        .delete(authController.isAuthenticated, commentController.undislikeComment);
 }
