@@ -49,7 +49,11 @@ var PostSchema = Schema({
     created_time: {
         type: Date,
         default: Date.now
-    }
+    },
+    image_urls: [{
+        type: String,
+        unique: true
+    }]
 });
 
 module.exports = mongoose.model('Post', PostSchema);
