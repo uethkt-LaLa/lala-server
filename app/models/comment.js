@@ -6,6 +6,14 @@ var CommentSchema = Schema({
     userId: {
         type: String,
     },
+    userName: {
+        type: String,
+        default: ""
+    },
+    userAvatar: {
+        type: String,
+        default: ""
+    },
     // attachment: {
     //     type: String,
     // },

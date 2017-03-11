@@ -5,6 +5,8 @@ exports.postCommentsToPost = function(req, res) {
 
     comment.userId = req.user._id;
     comment.postId = req.params.post_id;
+    comment.userName = req.user.display_name;
+    comment.userAvatar = req.user.image_url;
     comment.save(function(err) {
         if (err)
             res.send(err);
