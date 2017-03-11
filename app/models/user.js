@@ -9,6 +9,9 @@ var UserSchema = Schema({
         unique: true,
         required: true
     },
+    display_name: {
+        type: String,
+    },
     password: {
         type: String,
         required: true

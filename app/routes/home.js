@@ -23,9 +23,6 @@ module.exports = function(router){
     router.route('/:user_id/posts')
         .get(authController.isAuthenticated, postController.getPostsByUser);
 
-    router.route('/fb_id/:fb_id')
-        .get(authController.isAuthenticated, userController.getUserByFBId);
-
 
 
     // Routing for following stuff

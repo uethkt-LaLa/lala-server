@@ -4,6 +4,9 @@ var Tag = require('../models/tag');
 exports.postUsers = function(req, res) {
     var user = new User(req.body);
 
+    user.username = req.body.fb_id;
+    user.display_name = req.body.display_name;
+    user.password = req.body.password;
     user.save(function(err) {
         if (err)
             res.send(err);
