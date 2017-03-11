@@ -6,43 +6,43 @@ var commentController = require('../controllers/comment');
 module.exports = function(router){
     
     router.route('/')
-        .get(authController.isAuthenticated, userController.getCurrentUser)
-        .put(authController.isAuthenticated, userController.putUser)
-        .delete(authController.isAuthenticated, userController.deleteUser);
+        .get(userController.getCurrentUser)
+        .put(userController.putUser)
+        .delete(userController.deleteUser);
 
     router.route('/posts')
-        .get(authController.isAuthenticated, postController.getPostsByMe);
+        .get(postController.getPostsByMe);
 
     router.route('/comments')
-        .get(authController.isAuthenticated, commentController.getCommentsByMe);
+        .get(commentController.getCommentsByMe);
 
     router.route('/:user_id/followers')
-        .put(authController.isAuthenticated, userController.addFollower)
-        .delete(authController.isAuthenticated, userController.removeFollower);
+        .put(userController.addFollower)
+        .delete(userController.removeFollower);
 
     router.route('/:user_id/posts')
-        .get(authController.isAuthenticated, postController.getPostsByUser);
+        .get(postController.getPostsByUser);
 
 
 
     // Routing for following stuff
     router.route('/following_people/:following_id')
-        .put(authController.isAuthenticated, userController.followUser)
-        .delete(authController.isAuthenticated, userController.unfollowUser);
+        .put(userController.followUser)
+        .delete(userController.unfollowUser);
 
     router.route('/following_posts/:post_id')
-        .put(authController.isAuthenticated, userController.followPost)
-        .delete(authController.isAuthenticated, userController.unfollowPost);
+        .put(userController.followPost)
+        .delete(userController.unfollowPost);
 
     router.route('/following_categories/:category_id')
-        .put(authController.isAuthenticated, userController.followCategory)
-        .delete(authController.isAuthenticated, userController.unfollowCategory);
+        .put(userController.followCategory)
+        .delete(userController.unfollowCategory);
 
     router.route('/following_tags/:tag_id')
-        .put(authController.isAuthenticated, userController.followTag)
-        .delete(authController.isAuthenticated, userController.unfollowTag);
+        .put(userController.followTag)
+        .delete(userController.unfollowTag);
 
     router.route('/following_tags/')
-        .get(authController.isAuthenticated, userController.getTagsUserFollow);
+        .get(userController.getTagsUserFollow);
 
 }

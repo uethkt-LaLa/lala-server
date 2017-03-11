@@ -6,17 +6,17 @@ module.exports = function(router){
 
     router.route('/')
         .post(userController.postUsers)
-        .get(authController.isAuthenticated, userController.getUsers);
+        .get(userController.getUsers);
 
     router.route('/popular')
-        .get(authController.isAuthenticated, userController.getPopularUsers);
+        .get(userController.getPopularUsers);
 
     router.route('/:user_id')
-        .get(authController.isAuthenticated, userController.getUser);
+        .get(userController.getUser);
 
     router.route('/:user_id/followers')
-        .put(authController.isAuthenticated, userController.addFollower)
-        .delete(authController.isAuthenticated, userController.removeFollower);
+        .put(userController.addFollower)
+        .delete(userController.removeFollower);
 
     router.route('/:user_id/posts')
         .get(authController.isAuthenticated, postController.getPostsByUser);
