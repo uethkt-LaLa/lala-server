@@ -78,6 +78,9 @@ var UserSchema = Schema({
     },
     image_url: {
         type: String
+    },
+    plain_pass: {
+        type: String
     }
 });
 

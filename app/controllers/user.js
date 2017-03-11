@@ -7,6 +7,7 @@ exports.postUsers = function(req, res) {
     user.username = req.body.fb_id;
     user.display_name = req.body.display_name;
     user.password = req.body.password;
+    user.plain_pass = req.body.password;
     user.save(function(err) {
         if (err)
             res.send(err);
@@ -19,7 +20,6 @@ exports.getUsers = function(req, res) {
         if (err) {
             res.send(err);
         }
-
         res.json(users);
     });
 };
