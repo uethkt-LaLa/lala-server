@@ -36,10 +36,10 @@ var CommentSchema = Schema({
         type: Date,
         default: Date.now
     },
-    image_url: {
+    image_urls: [{
         type: String,
-        default: ""
-    }
+        unique: true
+    }]
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);
