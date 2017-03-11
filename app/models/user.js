@@ -18,7 +18,8 @@ var UserSchema = Schema({
         required: true
     },
     fb_id: {
-        type: String
+        type: String,
+        default: ""
     },
     token: {
         type: String

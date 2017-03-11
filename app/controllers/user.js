@@ -48,6 +48,15 @@ exports.getUser = function(req, res) {
     });
 };
 
+exports.getUserByFBId = function(req, res) {
+    User.find({ fb_id: req.params.fb_id }, function(err, users) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(users);
+    });
+};
+
 exports.putUser = function(req, res) {
     User.update({ "_id": req.user._id }, req.body,
         function(err, user) {
