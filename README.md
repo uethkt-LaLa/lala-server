@@ -7,7 +7,7 @@ A RESTful API built with Node.js and [Express 4](http://expressjs.com/).
 Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
-$ git clone https://github.com/mocmeo/lala_server.git # or clone your own fork
+$ git clone https://github.com/mocmeo/lala_server.git  # or clone your own fork
 $ cd lala_server
 $ npm install
 $ npm start
