@@ -4,13 +4,6 @@ var postController = require('../controllers/post');
 
 module.exports = function(router){
 
-    // router.use(function(req, res, next){
-    //     if(req.isAuthenticated()){
-    //         return next();
-    //     }
-    //     res.redirect('/auth');
-    // });
-
     router.route('/')
         .post(userController.postUsers)
         .get(authController.isAuthenticated, userController.getUsers);

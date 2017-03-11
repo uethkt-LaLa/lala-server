@@ -17,12 +17,17 @@ var UserSchema = Schema({
         type: String,
         required: true
     },
+    fb_id: {
+        type: String
+    },
+    token: {
+        type: String
+    },
     phone_number: {
         type: String
     },
     gender: {
         type: Boolean,
-        required: true
     },
     bio: {
         type: String,
