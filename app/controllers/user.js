@@ -251,6 +251,8 @@ exports.getNewFeeds = function(req, res) {
         results.add(following_posts[i]);
     }
 
+    var final_results = new Set();
+
     Tag.find({'_id': {'$in' : req.user.following_tags}}, function (err, tags) {
         if (err)
             res.send(err);
@@ -258,9 +260,18 @@ exports.getNewFeeds = function(req, res) {
         for (var i = 0; i < tags.length; ++i) {
             for (var j = 0; j < tags[i].posts.length; ++j) {
                 results.add(tags[i].posts[j]);
-                console.log('Posts to add' + tags[i].posts[j]);
             }
         }
+    });
+
+    Post.find({'userId': {'$in' : req.user.followings}}, function (err, posts) {
+        if (err)
+            res.send(err);
+        for (var i = 0; i < posts.length; ++i) {
+            results.add(posts[i]._id.toString());
+        }
+        // console.log(results);
+
         Post.find({'_id': {'$in' : Array.from(results)}}, null, {sort: {created_time: -1}},
             function (err, posts) {
                 if (err) {
@@ -269,7 +280,6 @@ exports.getNewFeeds = function(req, res) {
                 res.json(posts);
             });
     });
-    
 };
 
 
