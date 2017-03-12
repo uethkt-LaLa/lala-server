@@ -16,7 +16,7 @@ exports.postPosts = function(req, res) {
 };
 
 exports.getPosts = function(req, res) {
-    Post.find({}, null, {sort: {created_time: 1}},
+    Post.find({}, null, {sort: {created_time: -1}},
         function (err, posts) {
             if (err) {
                 res.send(err);
