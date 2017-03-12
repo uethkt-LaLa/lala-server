@@ -8,7 +8,7 @@ Make sure you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
 $ git clone https://github.com/uethackathon2017/LaLa2.git  # or clone your own fork
-$ cd lala_server
+$ cd LaLa2
 $ npm install
 $ npm start
 ```
