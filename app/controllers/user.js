@@ -43,6 +43,18 @@ exports.getTagsUserFollow = function (req, res) {
     });
 }
 
+exports.getTagsOtherFollow = function (req, res) {
+    User.findById(req.params.user_id, function(err, user) {
+        if (err)
+            res.send(err);
+        Tag.find({'_id': {'$in' : user.following_tags}}, function (err, tags) {
+            if (err)
+                res.send(err);
+            res.json(tags);
+        });
+    });
+}
+
 
 exports.getUser = function(req, res) {
     User.findById(req.params.user_id, function(err, user) {

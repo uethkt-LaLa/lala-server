@@ -20,6 +20,9 @@ module.exports = function(router){
 
     router.route('/:user_id/posts')
         .get(authController.isAuthenticated, postController.getPostsByUser);
+
+    router.route('/:user_id/following_tags')
+        .get(authController.isAuthenticated, userController.getTagsOtherFollow);
     
     router.route('/fb_id/:fb_id')
         .get(userController.getUserByFBId);
